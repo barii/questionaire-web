@@ -11,7 +11,7 @@ export default function MultichoiceQuestionPanel({question, onEdit}) {
           <div className="form-group">
             <select className="form-control form-control-lg">
               {question.choices.map((choice, i) => (
-                <option id={choice.id} key={choice.id}>{choice.value}</option>
+                <option id={choice._id} key={choice._id}>{choice.value}</option>
               ))}
             </select>
           </div>

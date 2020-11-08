@@ -17,8 +17,7 @@ const questionTypes = {
     'text': 'Multichoice question',
     'component':   MultichoiceQuestion,
     'addComponent': MultichoiceQuestionFormContainer
-  },
-  
+  } 
 }
 
 
@@ -74,29 +73,47 @@ class Sheet extends Component {
     }));
   }
 
-  onUpdateQuestion = (question) => {
-    this.setState(prevState => ({
-      questions: prevState.questions.map((q) => {
-        if (q.id === question.id) {
-          return question;
-        } else {
-          return q;
-        }
-      })
-    }));
+
+  callUpdateApi = async (question) => {
+
+    const response = await fetch('/api/questions/'+question._id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ post: question }),
+    });
+
+    return await response.text();
   }
 
-  callAddApi = async () => {
+  onUpdateQuestion = (question) => {
+    this.callUpdateApi(question)
+    .then(res => 
+      this.setState(prevState => ({
+        questions: prevState.questions.map((q) => {
+          if (q._id === question._id) {
+            return question;
+          } else {
+            return q;
+          }
+        })
+      }))
+    )
+    .catch(err => console.log(err));
+  }
+
+  callAddApi = async (question) => {
+
     const response = await fetch('/api/questions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ post: this.state.post }),
+      body: JSON.stringify({ post: question }),
     });
-    console.log(response);
-    const body = await response.text();
-    resolve(body);
+
+    return await response.text();
   }
 
   onAddQuestion = (question) => {
@@ -108,21 +125,19 @@ class Sheet extends Component {
             {
               ...question,
               type: this.state.value,
-              id: uuid()
+              _id: uuid()
             }
           ]
         }))
       )
       .catch(err => console.log(err));
-    
-
   }
 
 
   render() {
     const questionComponentList = this.state.questions.map((question, i) => {
       const ComponentEdit = questionTypes[question.type].component;
-      return <ComponentEdit key={question.id} question={question} errors={{}} onSubmit={(q) => this.onUpdateQuestion(q) } />
+      return <ComponentEdit key={question._id} question={question} errors={{}} onSubmit={(q) => this.onUpdateQuestion(q) } />
     })
 
     const AddNewQuestion = questionTypes[this.state.value].addComponent;

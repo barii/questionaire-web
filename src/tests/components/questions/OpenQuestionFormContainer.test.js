@@ -5,14 +5,14 @@ import { OpenQuestionFormContainer } from '../../../components/questions/OpenQue
 
 
 const question = {
+  _id: '1',
   type: "OpenQuestion",
-  id: '1',
   text: "Text",
   description: ""
 }
 const questionWithEmptyText = {
+  _id: '1',
   type: "OpenQuestion",
-  id: '1',
   text: "",
   description: ""
 }
@@ -65,6 +65,6 @@ it('should be submitted with correct state', () => {
   wrapper.instance().onSubmit({ preventDefault() {} } );
 
   expect(wrapper.state('errors')).toEqual({});
-  expect(onSubmit).toHaveBeenCalled();
+  expect(onSubmit).toHaveBeenCalledWith(question);
 });
 

@@ -21,9 +21,9 @@ const wrapper = shallow(
   />
 );
 
-it('should render OpenQuestionForm correctly (snapshot)', () => {
+it('should render OpenQuestionForm correctly (snapshot) enzime', () => {
   expect(wrapper).toMatchSnapshot();
-});
+}); 
 
 it('should call onSubmit on button click', () => {
   wrapper.find('Form').simulate('submit');

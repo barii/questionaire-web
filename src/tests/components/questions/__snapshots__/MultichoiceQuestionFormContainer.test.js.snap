@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render MultichoiceQuestionFormContainer correctly (SNAPSHOT) 1`] = `
+<MultichoiceQuestionForm
+  errors={Object {}}
+  onAdd={[Function]}
+  onChange={[Function]}
+  onSubmit={[Function]}
+  question={
+    Object {
+      "_id": "1",
+      "choices": Array [
+        Object {
+          "_id": "1",
+          "value": "Choice 1",
+        },
+      ],
+      "description": "",
+      "text": "Text",
+      "type": "MultichoiceQuestion",
+    }
+  }
+/>
+`;

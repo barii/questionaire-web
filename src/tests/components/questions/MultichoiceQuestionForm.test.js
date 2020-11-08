@@ -27,7 +27,7 @@ const wrapper = shallow(
     onSubmit={onSubmit}
     onAdd={onAdd} 
   />
-);
+); 
 
 it('should render MultichoiceQuestionForm correctly (snapshot)', () => {
   expect(wrapper).toMatchSnapshot();

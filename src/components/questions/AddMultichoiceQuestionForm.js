@@ -11,7 +11,7 @@ class AddMultichoiceQuestionForm extends React.Component {
     this.state = {
       text: props.question ? props.question.text : '',
       description: props.question ? props.question.description : '',
-      choices: props.question ? props.question.choices : [{id: uuid(), value:''}],
+      choices: props.question ? props.question.choices : [{_id: uuid(), value:''}],
       error: ''
     };
   };
@@ -30,7 +30,7 @@ class AddMultichoiceQuestionForm extends React.Component {
     if (choices[choices.length-1].value!=='') {
       choices = [
         ...choices,
-        {id: uuid(), value:""}
+        {_id: uuid(), value:""}
       ];
     }
 
@@ -94,7 +94,7 @@ class AddMultichoiceQuestionForm extends React.Component {
                 <FormControl
                   type="text"
                   value={choice.value}
-                  key={choice.id}
+                  key={choice._id}
                   onChange={(e) => this.onChoiceChange(e, i)}
                 />
             ))}

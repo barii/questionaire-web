@@ -7,7 +7,7 @@ const QuestionList = (props) => (
   <div>
     <h1>Questions</h1>
     {props.questions.map((question) => {
-      return <QuestionListItemOpenQuestion key={question.id} {...question} />;
+      return <QuestionListItemOpenQuestion key={question._id} {...question} />;
     })}
   </div>
 );

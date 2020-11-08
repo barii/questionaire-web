@@ -13,7 +13,6 @@ const ListFieldGroup = ({
   disabled,
 }) => {
   if (error)console.log(error[Object.keys(error)[0]]);
-  
   return (
     <div className="form-group">
       {label && <label htmlFor={name}>{label}</label>}
@@ -21,18 +20,18 @@ const ListFieldGroup = ({
           'is-invalid': error
         })}>
         {options.map((choice, i) => (
-          <li key={choice.id} className='list-group-item no-padding'>
-          {error && error.choices && <p>error.choices[choice.id]</p>}
+          <li key={choice._id} className='list-group-item no-padding'>
+          {error && error.choices && <p>error.choices[choice._id]</p>}
             <input
               type="text"
               className={classnames('form-control form-control-lg no-border-if-valid', {
-                'is-invalid': error && error[choice.id]
+                'is-invalid': error && error[choice._id]
               })}
-              key={choice.id}
+              key={choice._id}
               placeholder={placeholder}
               name={name}
               value={choice.value}
-              onChange={(e) => onChange(e, choice.id)}
+              onChange={(e) => onChange(e, choice._id)}
               disabled={disabled}
             />
           </li>

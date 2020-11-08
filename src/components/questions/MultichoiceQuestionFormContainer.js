@@ -29,7 +29,7 @@ export class MultichoiceQuestionFormContainer extends React.Component {
       this.setState(prev => ({
         question: {
           ...prev.question,
-          [name]: prev.question[name].map(f => (f.id === idx) ? {...f, 'value': value} : f)
+          [name]: prev.question[name].map(f => (f._id === idx) ? {...f, 'value': value} : f)
         }
       }))
     } 
@@ -41,14 +41,13 @@ export class MultichoiceQuestionFormContainer extends React.Component {
         ...prev.question,
         choices: [
           ...prev.question.choices,
-          {id: uuid(), value:""}
+          {_id: uuid(), value:""}
         ]
       }
     }))
   }
 
   isempty = (e) => {
-    console.log(!e.value)
     return !e.value;
   }
 
@@ -63,7 +62,7 @@ export class MultichoiceQuestionFormContainer extends React.Component {
     if (this.state.question.choices.some(this.isempty)) {
       errors.choices = {};//'Please provide value for all choices.';
       this.state.question.choices.filter(this.isempty).forEach(choice => 
-        errors.choices[choice.id] = 'Please provide value for all choices'
+        errors.choices[choice._id] = 'Please provide value for all choices'
       )
     }
 

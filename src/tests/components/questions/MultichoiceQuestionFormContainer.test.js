@@ -3,25 +3,25 @@ import { shallow } from 'enzyme';
 import { MultichoiceQuestionFormContainer } from '../../../components/questions/MultichoiceQuestionFormContainer';
 
 const question = {
+  _id: '1',
   type: "MultichoiceQuestion",
-  id: '1',
   text: "Text",
   description: "",
   choices: [
     {
-      id: '1',
+      _id: '1',
       value: "Choice 1"
     }
   ]
 }
 const questionWithEmptyText = {
+  _id: '1',
   type: "MultichoiceQuestion",
-  id: '1',
   text: "",
   description: "",
   choices: [
     {
-      id: '1',
+      _id: '1',
       value: "Choice 1"
     }
   ]
@@ -32,10 +32,10 @@ const setup = (initialState={}) => {
   return shallow(<MultichoiceQuestionFormContainer {...initialState} onSubmit={onSubmit} />);
 } 
 
-// it('should render OpenQuestionFormContainer correctly (SNAPSHOT)', () => {
-//   const wrapper = setup({question});
-//   expect(wrapper).toMatchSnapshot();
-// });
+it('should render MultichoiceQuestionFormContainer correctly (SNAPSHOT)', () => {
+  const wrapper = setup({question});
+  expect(wrapper).toMatchSnapshot();
+});
 
 it('should have a question, but no error in state after creation', () => {
   const wrapper = setup({question});
@@ -63,7 +63,7 @@ describe('Update the state', () => {
     const newChoiceValue = 'updated Choice 1';
     const id = '1'
     wrapper.instance().onChange({ target: {name: 'choices', value: newChoiceValue }}, id);
-    expect(wrapper.state('question').choices.filter(c => c.id === id)[0].value).toEqual(newChoiceValue);
+    expect(wrapper.state('question').choices.filter(c => c._id === id)[0].value).toEqual(newChoiceValue);
   });  
 });
 
@@ -79,7 +79,7 @@ describe('Adding new value', () => {
 });
 
 describe('Submitting', () => {
-  it('should throw an error if submitted with emoty text', () => {
+  it('should throw an error if submitted with empty text', () => {
     const wrapper = setup({question: questionWithEmptyText});
     wrapper.instance().onSubmit({ preventDefault() {} } );
 
@@ -93,7 +93,8 @@ describe('Submitting', () => {
     wrapper.instance().onSubmit({ preventDefault() {} } );
 
     expect(wrapper.state('errors')).toEqual({});
-    expect(onSubmit).toHaveBeenCalled();
+
+    expect(onSubmit).toHaveBeenCalledWith(question);
   });
 });
 
